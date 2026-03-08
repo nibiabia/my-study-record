@@ -164,3 +164,6 @@ class Solution:
                     return major
 
         return -1
+
+
+1
