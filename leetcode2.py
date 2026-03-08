@@ -80,3 +80,87 @@ class Solution:
 
 
 1
+# 数组中占比超过一半的元素称之为主要元素。给你一个 整数 数组，找出其中的主要元素。若没有，返回 - 1 。请设计时间复杂度为 O(N) 、空间复杂度为 O(1) 的解决方案。
+
+
+# 示例 1：
+
+# 输入：[1, 2, 5, 9, 5, 9, 5, 5, 5]
+# 输出：5
+# 示例 2：
+
+# 输入：[3, 2]
+# 输出：-1
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        scores = 1
+        major = nums[0]
+        length = len(nums)
+        for i in range(1, length):
+            if nums[i] == major:
+                scores += 1
+            else:
+                scores -= 1
+            if scores == 0 and i < length-1:
+                major = nums[i+1]
+                scores = 1
+        count = 0
+        for num in nums:
+            if num == major:
+                count += 1
+        if count > len(nums)/2:
+            return major
+        else:
+            return -1
+# 没错，又是哈吉米给的思路，自己敲得狗屎代码www
+
+# 根据哈吉米的指正，修改：自己修改的还是很狗史
+
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        scores = 1
+        major = nums[0]
+        for num in nums[1:]:  # 切片会产生 O(N)空间
+            if scores == 0:
+                major = num
+                scores = 1
+            elif num == major:
+                scores += 1
+            else:
+                scores -= 1
+        count = 0
+        for num in nums:
+            if num == major:
+                count += 1
+            if count > len(nums)/2:
+                return major
+        else:
+            return -1
+
+    # 最终优化：
+    class Solution:
+
+    def majorityElement(self, nums: List[int]) -> int:
+        # --- 第一阶段：投票 ---
+        major = None
+        scores = 0
+        for num in nums:
+            if scores == 0:
+                major = num
+                scores = 1
+            elif num == major:
+                scores += 1
+            else:
+                scores -= 1
+
+    # --- 第二阶段：计数与提前退出 ---
+        count = 0
+        limit = len(nums) / 2  # 提前算好阈值，提升效率
+        for num in nums:
+            if num == major:
+                count += 1
+                if count > limit:  # 一旦超过一半，立刻结束战斗！
+                    return major
+
+        return -1
