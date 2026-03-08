@@ -12,8 +12,10 @@ def lazy_sum(*args):
         return total
     return sum
 
+
 # >> > f = lazy_sum(1, 3, 5, 7, 9)
 # >> > f
 # <function lazy_sum. < locals > .sum at 0x101c6ed90 >
 # >> > f()
 # 25
+1

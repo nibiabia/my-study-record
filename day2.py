@@ -22,3 +22,4 @@ c1 = make_counter()   # c1 现在是一个函数
 print(c1())           # 1
 print(c1())           # 2
 print(c1())           # 3
+1
