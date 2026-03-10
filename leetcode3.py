@@ -52,3 +52,49 @@ class Solution:
         nums1[m:] = nums2  # 不用for循环速度快了好多 list[start:end] = iterable 是替换
         # 原地排序
         nums1.sort()
+
+
+# 根据哈吉米给的最优算法的思路（从后往前填），自己敲的狗屎代码
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        p1 = m - 1
+        p2 = n - 1
+        p = m + n - 1
+        while p1 >= 0 and p2 >= 0:
+            if nums2[p2] > nums1[p1]:
+                nums1[p] = nums2[p2]
+                p -= 1
+                p2 -= 1
+            else:
+                nums1[p] = nums1[p1]
+                p -= 1
+                p1 -= 1
+
+
+# 哈吉米给的正解
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        # 初始化三个指针
+        p1 = m - 1      # nums1 的有效末尾
+        p2 = n - 1      # nums2 的末尾
+        p = m + n - 1   # nums1 的真正末尾（填空位用）
+
+        # 只要两个数组都还没遍历完
+        while p1 >= 0 and p2 >= 0:
+            if nums1[p1] > nums2[p2]:
+                nums1[p] = nums1[p1]
+                p1 -= 1
+            else:
+                nums1[p] = nums2[p2]
+                p2 -= 1
+            p -= 1
+
+        # 特殊情况处理：
+        # 如果 p1 先走完了，nums2 还有剩下的数，得把它们全搬过来
+        # 如果 p2 先走完了，nums1 剩下的数已经在正确位置上了，不用动
+        # 补充缺失的边界情况：如果 nums1 遍历完了，但 nums2 还有剩余
+        # 直接把 nums2 剩下的元素拷贝到 nums1 的前面
+        while p2 >= 0:
+            nums1[p] = nums2[p2]
+            p -= 1
+            p2 -= 1
