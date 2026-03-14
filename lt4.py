@@ -68,3 +68,4 @@ class Solution:
         return strs[0]
 # 若没有公共前缀，return strs[0][:0],而strs[0][0:0] 在 Python 中得到的结果正是空字符串 ""
 #这个方法时间复杂度最优
+1
